@@ -1,0 +1,80 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <style>
+    .custom-div {
+      margin-top: 5px;
+      margin-left: 20px;
+      padding: 10px;
+
+    }
+    h1 {
+        padding: 50px;
+    }
+  </style>
+{% endblock %}
+
+{% block title %}Coding Challenge{% endblock %}
+
+{% block content %}
+<div class="custom-div">
+    <a href="{{ url_for('home') }}" class="btn btn-success btn-lg"">Home</a>
+</div>
+
+<div class="container">
+    {% if query == 'query1' %}
+    <h1 class="text-center mt-10">Number of Employees Hired by Job and Department in 2021</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Department</th>
+                    <th>Job</th>
+                    <th>Q1</th>
+                    <th>Q2</th>
+                    <th>Q3</th>
+                    <th>Q4</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in result %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[3] }}</td>
+                        <td>{{ row[4] }}</td>
+                        <td>{{ row[5] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% elif query == 'query2' %}
+    <h1 class="text-center mt-10">List of departments with more employees than mean</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Department</th>
+                    <th>Hired</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in result %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No query selected</p>
+    {% endif%}
+</div>
+{% endblock %}
