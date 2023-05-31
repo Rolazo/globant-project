@@ -118,7 +118,6 @@ def upload():
             expected_data_types = [int, str, datetime, int, int]
             for column, expected_data_type in zip(df.columns, expected_data_types):
                 column_data_type = df[column].dtype
-                print(column_data_type)
                 if column_data_type != expected_data_type and column_data_type != object:
                     msg = f'Invalid data type in CSV file. Expected {expected_data_type.__name__} type for {column} column.'
                     return render_template('error.html', msg=msg)
@@ -136,7 +135,8 @@ def upload():
             new_ids = [row['id'] for row in data]
             duplicate_ids = set(new_ids).intersection(existing_ids)
             if duplicate_ids:
-                return f'Duplicate id found in CSV file: {duplicate_ids}'
+                msg = f'Duplicate id found in CSV file: {duplicate_ids}'
+                return render_template('error.html', msg=msg)
 
             # Insert data into the database in batches
             batch_size = 100  # Adjust the batch size as needed
@@ -152,7 +152,8 @@ def upload():
                 session.commit()
             except Exception as e:
                 session.rollback()
-                return f'An error occurred while uploading data: {str(e)}'
+                msg = f'An error occurred while uploading data: {str(e)}'
+                return render_template('error.html', msg=msg)
             finally:
                 session.close()
 
