@@ -193,9 +193,9 @@ To have the database running in GCP you must do the following:
 
 2. Upload your docker image into Google Container Registry
 Change <PROJECT-ID> with the problem that you have created in GCP
-´´´
+```
 docker tag my-flask-app gcr.io/<PROJECT-ID>/my-flask-app
-´´´
+```
 3. Deplot the flask application into  Google App Engine using Google Cloud SDK (gcloud)
 In the root directory of your Flask application, create an app.yaml file with the following content:
 ```
