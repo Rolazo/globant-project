@@ -156,7 +156,9 @@ def upload():
             finally:
                 session.close()
 
-            return 'Data uploaded successfully!'
+            msg = 'Data uploaded successfully!'
+            return render_template('error.html', msg=msg)
+
 
     return render_template('upload.html', form=form)
 
